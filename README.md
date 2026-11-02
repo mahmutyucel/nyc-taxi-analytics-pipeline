@@ -1,8 +1,21 @@
-﻿# NYC Taxi Analytics Pipeline
+# NYC Taxi Analytics Pipeline
 
-NYC TLC acik verisi uzerinde otomatik calisan veri muhendisligi boru hatti. GitHub Actions ile aylik olarak en son ayin verisi indirilir, temizlenir, saatlik bahsis istatistikleri ve grafik uretilir.
+[![Monthly Pipeline](https://github.com/mahmutyucel/nyc-taxi-analytics-pipeline/actions/workflows/pipeline.yml/badge.svg)](https://github.com/mahmutyucel/nyc-taxi-analytics-pipeline/actions/workflows/pipeline.yml)
 
-## Calistirma
-```n.\venv\Scripts\python.exe src\pipeline.py
-```n
-![Saatlik Bahsis](output/hourly_tip.png)
+> NYC TLC'nin resmi açık verisi üzerinde çalışan, aylık otomatik tetiklenen uçtan uca veri mühendisliği boru hattı. Python + DuckDB + Parquet + GitHub Actions.
+
+## Mimari
+
+```text
+GitHub Actions (aylik cron)
+    |
+    v
+src/pipeline.py  -->  ingest.py    -> TLC CDN'den en son ayin Parquet'i indirir
+    |
+    +-->  transform.py  -> DuckDB ile temizler, saatlik bahsis istatistigi
+    |
+    +-->  plot.py       -> matplotlib ile grafik uretir
+                                  |
+                                  v
+                       output/hourly_tip.png
+                       (repoya otomatik commit edilir)
