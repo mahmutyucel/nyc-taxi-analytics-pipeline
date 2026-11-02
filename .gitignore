@@ -1,0 +1,9 @@
+﻿venv/
+__pycache__/
+*.pyc
+data/*.parquet
+output/*.parquet
+.env
+*.log
+!output/*.png
+.pytest_cache/
